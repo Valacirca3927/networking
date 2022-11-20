@@ -1,9 +1,13 @@
+## Foundation
+
+Each router in an area will have an identical `LSDB` Link state database. OSPF is two-tier, there is the backbone area `0`, and other areas have connectivity to the backbone.
+
 ## RFC
 [RFC 2328 - OSPF Version 2](https://www.rfc-editor.org/rfc/rfc2328)
 
 [Understand OSPF Design Guide - Cisco](https://www.cisco.com/c/en/us/support/docs/ip/open-shortest-path-first-ospf/7039-1.html)
 
-### OSPF commands 
+### Commands 
 Command | Description                                                                         
 -------------------------------------------- | -----------------------------------------------
 `show ip ospf interface brief`               |  Shows all interfaces OSPF is running on       
@@ -11,7 +15,33 @@ Command | Description
 `show ip ospf int brief`                     |  Interfaces OSPF is enabled on                 
 `show ip ospf int`                           |  OSPF interface information. Like network type 
 
-### OSPF LSAs
+### Packets
+
+| Type  | Packet  name          | Protocol  function           |
+| ______|_______________________|_____________________________ |
+| 1     | Hello                 | Discover/maintain  neighbors |
+| 2     | Database Description  | Summarize database contents  |
+| 3     | Link State Request    | Database download            |
+| 4     | Link State Update     | Database update              |
+| 5     | Link State Ack        | Flooding acknowledgment      |
+
+[Via the RFC :)](https://www.rfc-editor.org/rfc/rfc2328#section-10.8)
+
+#### Hello Packet
+
+| Field | Description |
+| ----- | ----------- | 
+| Router ID | 32 bits. Usually an IP, Usually the loopback0 |
+| Auth Options | `none`, `clear text`, `MD5` |
+| Area ID | 32 bits. Can be in IP or just decimal. |
+| Interface Address Mask | Subnet mask of the interface the hello is sent on |
+| Interface Priority | What priority this interface is for a DR election |
+| Hello Interval | Seconds between hello packets |
+| Dead Interval | How long to wait in seconds before delaring a router down | 
+| DR and BDR | IPs of the DR and BDR |
+| Active Neighbor | List of neighbors seen on the network segment, within the Dead Interval | 
+
+### LSAs
 
 Default OSPF routing preference
 
@@ -55,7 +85,7 @@ OSPF has two ways of originating a default route.
 
 `default-information originate always` do it anyway.
 
-## OSPF Authentication
+## Authentication
 	
 #### Signing
 
