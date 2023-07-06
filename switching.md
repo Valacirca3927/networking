@@ -16,3 +16,10 @@
 +---------------------------------------------------------------+
             16 bits                3   1        12 bits
 ```
+| VLAN ID             | Purpose     | 
+| -------------- | ---------------------|
+|0| reserved for 802.1P|
+|1| default vlan |
+|2-1001| normal network operations|
+|1002-1005| reserved|
+|1006-4094| extended vlan range|
