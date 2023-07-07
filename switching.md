@@ -2,7 +2,7 @@
 
 Bridges compare IDs, the only part of the IDs they compare are the priority then the mac address.
 
-The default for priority is `32768` or `0x80` on the wire.
+The default for priority is `32768` or `0x80` on the wire. Because the 802.1D committee exists, the priority is this, plus the vlan ID.
 
 **Always** configure a root bridge, or the *oldest device* with probably the *lowest mac address* wins the root bridge election.
 
