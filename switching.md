@@ -1,3 +1,33 @@
+## 802.1D - Spanning Tree
+
+The 802.1D committee wanted *two* learning states[^stp], one with and one without learning station addresses. This is why it's more complicated.
+
+[^stp]: *Interconnections* - Radia Perlman, page 67.
+
+```
++-----------+
+|    off    |
++-----+-----+
+      |
+      |   Turn on interface
+      v
++-----+-------+
+|  Listening  | Recieve + Send BPDUs
++-----+-------+
+      |
+      |   forward delay (default 15s)
+      v
++-----+------+
+|  Learning  |  Recieve + Send BPDUs + Progam CAM
++-----+------+
+      |
+      |   forward delay (default 15s)
+      v
++-----+--------+
+|  Forwarding  | Recieve + Send BPDUs + Program CAM + Forward Frames
++--------------+
+```
+
 ## ARP
 Captured on-wire via GNS3 from ipterm-to-ipterm
 
