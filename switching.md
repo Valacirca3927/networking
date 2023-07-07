@@ -1,3 +1,18 @@
+### STP Path Calculations
+`spanning-tree pathcost method long`
+
+| Speed      | Short-Mode Cost | Long-Mode Cost |
+|------------|-----------------|----------------|
+| 10 Mbps    | 100             | 2000000        |
+| 100 Mbps   | 19              | 200000         |
+| 1 Gbps     | 4               | 20000          |
+| 10 Gbps    | 2               | 2000           |
+| 20 Gbps    | 1               | 1000           |
+| 40 Gbps    | 1               | 500            |
+| 100 Gbps   | 1               | 200            |
+| 1 Tbps     | 1               | 20             |
+| 10 Tbps    | 1               | 2              |
+
 ## 802.1D - Spanning Tree
 
 The 802.1D committee wanted *two* learning states[^stp], one with and one without learning station addresses. This is why it's more complicated.
