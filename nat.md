@@ -19,3 +19,5 @@ DA = Destination Adress
            │                                    │         │                                      │
            └────────────────────────────────────┘         └──────────────────────────────────────┘
 ```
+
+Based on a diagram [here.](https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/13772-12.html)
