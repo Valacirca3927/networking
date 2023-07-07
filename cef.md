@@ -1,3 +1,7 @@
+### RP Failure
+
+NSF or NSR keep the CEF entries in the table while the control plane recovers. Otherwise, the routes will flap.
+
 ### Looking at CEF to see the default route on IOS
 
 Cisco IOS really likes it when the mask is specified.
