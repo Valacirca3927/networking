@@ -1,3 +1,9 @@
+**Root Port (RP)** - Towards the Root Bridge, doesn't send BPDUs
+
+**Designated Port (DP)** - Away from the Root Bridge, Sends BPDUs
+
+Each LAN segment (really links in a full-duplex design) figures out which side is going to send the BPDUs based on comparing bridge IDs.
+
 ### STP Path Calculations
 `spanning-tree pathcost method long`
 
