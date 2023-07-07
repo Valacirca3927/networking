@@ -1,8 +1,38 @@
+### Root bridges election in Spanning Tree.
+
+Bridges compare IDs, the only part of the IDs they compare are the priority then the mac address.
+
+The default for priority is `32768` or `0x80` on the wire.
+
+**Always** configure a root bridge, or the *oldest device* with probably the *lowest mac address* wins the root bridge election.
+
+```
+switch(config)#spanning-tree vlan 60 priority ?
+% Bridge Priority must be in increments of 4096.
+% Allowed values are: 
+  0     4096  8192  12288 16384 20480 24576 28672
+  32768 36864 40960 45056 49152 53248 57344 61440
+```
+
+### The side closer to the Root Bridge sends the BPDUs
+
+The side closer to the root bridge sends the BPDUs, with two fields:
+
+**Root ID** - The bridge that has won and is winning the elections
+
+**Bridge ID** - The bridge sending the BPDUs.
+
+Each LAN segment (really links in a full-duplex design) figures out which side is going to send the BPDUs based on comparing bridge IDs.
+
 **Root Port (RP)** - Towards the Root Bridge, doesn't send BPDUs
 
 **Designated Port (DP)** - Away from the Root Bridge, Sends BPDUs
 
-Each LAN segment (really links in a full-duplex design) figures out which side is going to send the BPDUs based on comparing bridge IDs.
+
+
+
+
+
 
 ### STP Path Calculations
 `spanning-tree pathcost method long`
