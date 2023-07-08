@@ -1,6 +1,8 @@
-### Root bridges election in Spanning Tree.
+## Root bridges election in Spanning Tree.
 
-Bridges compare IDs, the only part of the IDs they compare are the priority then the mac address.
+Two bridges send each other BPDUs, they compare bridge IDs to see who will keep sending BPDUs
+
+The bridge with the lower ID (priority + mac address) wins. The non-root-bridge copies this bridge ID into it's BPDU, and sends that downstream.
 
 The default for priority is `32768` or `0x80` on the wire. Because the 802.1D committee exists, the priority is this, plus the vlan ID.
 
@@ -13,26 +15,20 @@ switch(config)#spanning-tree vlan 60 priority ?
   0     4096  8192  12288 16384 20480 24576 28672
   32768 36864 40960 45056 49152 53248 57344 61440
 ```
+## Port Types
 
-### The side closer to the Root Bridge sends the BPDUs
+**Designated ports** send BPDUs downstream.
 
-The side closer to the root bridge sends the BPDUs, with two fields:
+**Root Ports** are the best port towards the root bridge, either the lowest total cost or the lowest advertised priority or lowest advertised port ID (interface number).
+
+## BPDU Fields
 
 **Root ID** - The bridge that has won and is winning the elections
 
 **Bridge ID** - The bridge sending the BPDUs.
 
-Each LAN segment (really links in a full-duplex design) figures out which side is going to send the BPDUs based on comparing bridge IDs.
-
-**Root Port (RP)** - Towards the Root Bridge, doesn't send BPDUs
-
-**Designated Port (DP)** - Away from the Root Bridge, Sends BPDUs
-
-
-
-
-
-
+## Root Path Cost
+**Root Path Cost** - What the interfaces costs + the advertised cost to the root. The root sends a cost of 0.
 
 ### STP Path Calculations
 `spanning-tree pathcost method long`
@@ -48,6 +44,18 @@ Each LAN segment (really links in a full-duplex design) figures out which side i
 | 100 Gbps   | 1               | 200            |
 | 1 Tbps     | 1               | 20             |
 | 10 Tbps    | 1               | 2              |
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 802.1D - Spanning Tree
 
