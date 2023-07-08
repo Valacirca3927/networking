@@ -18,7 +18,7 @@ Command | Description
 ### Packets
 
 | Type  | Packet  name          | Protocol  function           |
-| ______|_______________________|_____________________________ |
+| ----- | --------------------- | ---------------------------- |
 | 1     | Hello                 | Discover/maintain  neighbors |
 | 2     | Database Description  | Summarize database contents  |
 | 3     | Link State Request    | Database download            |
