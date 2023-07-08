@@ -278,3 +278,48 @@ packet #2 - 10.0.0.10 is at ce:b1:5f:58:1d:8a
 |2-1001| normal network operations|
 |1002-1005| reserved|
 |1006-4094| extended vlan range|
+
+## Topology Change Notifications (TCNs)
+The default for cisco is keeping a mac-address on the CAM for 300 seconds.
+
+Recieving a TCN sets this `max age` to the `forward delay` usually 15 seconds.
+
+```
+switch# show mac address-table aging-time 
+Global Aging Time:  300
+Vlan    Aging Time
+----    ----------
+```
+
+##### Finding TCNs
+```
+SW1#show spanning-tree vlan 20 detail | s Spanning
+ VLAN0020 is executing the rstp compatible Spanning Tree protocol
+  Bridge Identifier has priority 32768, sysid 20, address aabb.cc00.0100
+  Configured hello time 2, max age 20, forward delay 15, transmit hold-count 6
+  Current root has priority 8212, address aabb.cc00.0200
+  Root port is 7 (Ethernet1/2), cost of root path is 200
+  Topology change flag not set, detected flag not set
+  Number of topology changes 8 last change occurred 01:07:20 ago   < ----
+          from Ethernet1/2                                         < ----
+  Times:  hold 1, topology change 35, notification 2
+          hello 2, max age 20, forward delay 15 
+  Timers: hello 0, topology change 0, notification 0, aging 300
+```
+
+##### On the device
+
+```
+switch# show spanning-tree vlan 20 detail | i VLAN|transitions 
+ VLAN0020 is executing the rstp compatible Spanning Tree protocol
+ Port 2 (Ethernet0/1) of VLAN0020 is designated forwarding 
+   Number of transitions to forwarding state: 2
+ Port 4 (Ethernet0/3) of VLAN0020 is alternate blocking 
+   Number of transitions to forwarding state: 1
+ Port 7 (Ethernet1/2) of VLAN0020 is root forwarding 
+   Number of transitions to forwarding state: 2
+ Port 8 (Ethernet1/3) of VLAN0020 is alternate blocking 
+   Number of transitions to forwarding state: 0
+ Port 12 (Ethernet2/3) of VLAN0020 is designated forwarding 
+   Number of transitions to forwarding state: 2
+```
