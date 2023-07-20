@@ -1,4 +1,12 @@
-A very basic setup, that assumes a working underlay. I implemented this on c7200s via GNS3 running `15.2(4)S7`. My underlay was IS-IS to router loopbacks.
+A very basic setup, that assumes a working underlay. I implemented this on my home lab of c7200s in GNS3 running `15.2(4)S7`. My underlay was IS-IS to router loopbacks.
+
+```
+Site 1 EIDs - 192.168.100.0/24
+Site 2 EIDs - 192.168.101.0/24
+
+xTR for Site 1 - Lo0 16.16.16.16
+xTR for Site 2 - Lo0 19.19.19.19
+```
  
 #### Site 1 - xTR
 ##### config
