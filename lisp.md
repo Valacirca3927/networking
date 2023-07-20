@@ -113,7 +113,7 @@ Allowed EID-prefixes:
 
 #### A Packet (an ICMP Request)
 
-[Capture is here](https://github.com/ariadne-notes/networking/packet-captures/lisp/lisp-icmp-ping.pcapng)
+[Capture is here](https://github.com/ariadne-notes/networking/blob/main/packet-captures/lisp/lisp-icmp-ping.pcapng)
 
 ```
 Frame 4156: 134 bytes on wire (1072 bits), 134 bytes captured (1072 bits) on interface -, id 0
