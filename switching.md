@@ -16,9 +16,11 @@ switch(config)# spanning-tree vlan 60 priority ?
   32768 36864 40960 45056 49152 53248 57344 61440
 ```
 
+## Loop Prevention
+
 Best practice is to set the root to `0` and the secondary to `4096`.
 
-#### BPDU Guard
+### BPDU Guard
 ```
 switch(config)# spanning-tree portfast bpduguard default
 ```
@@ -68,6 +70,20 @@ Interface       Errdisable reason       Time left(sec)
 ---------       -----------------       --------------
 Et2/3                  bpduguard          296
 ```
+
+### STP Loop Guard
+
+A unidirectional failure on a `root` or `alternate` port will cause spanning tree to loop, as other switches will unblock ports, and the unidirectional failure will still foward frames. To prevent this, turn on `stp loop guard` so ... if a port doesn't get a BPDU, it enters `STP loop-inconsistent` disabling the port.
+
+This is done per interface, and is pretty tedious.
+
+```
+switch(config)# interface Ethernet 1/1
+switch(config-if)# spanning-tree guard loop
+```
+
+More details [here](https://www.cisco.com/c/en/us/support/docs/lan-switching/spanning-tree-protocol/10596-84.html).
+
 ## Port Types
 
 **Designated ports** send BPDUs downstream.
