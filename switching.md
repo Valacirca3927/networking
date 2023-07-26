@@ -15,6 +15,8 @@ switch(config)# spanning-tree vlan 60 priority ?
   0     4096  8192  12288 16384 20480 24576 28672
   32768 36864 40960 45056 49152 53248 57344 61440
 ```
+
+Best practice is to set the root to `0` and the secondary to `4096`. Also use `root-guard`.
 ## Port Types
 
 **Designated ports** send BPDUs downstream.
