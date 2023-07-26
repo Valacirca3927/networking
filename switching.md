@@ -89,7 +89,7 @@ The 802.1D committee wanted *two* learning states[^stp], one with and one withou
 
 #### BPDU Frame Format
 
-This is a RSTP BPDU in Packet Tracer
+This is a RSTP BPDU in Wireshark taken via GNS3.
 ```
 Spanning Tree Protocol
 
