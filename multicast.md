@@ -5,7 +5,7 @@ Multicast is always TO a group not FROM a group.
 A multicast address can only ever be a destination.
 
 Addresses      | Description
--------------- | 
+-------------- | --------------
 `224.0.0.0/4`  | Multicast Supernet
 `224.0.0.1`    | All Systems on this Subnet
 `224.0.0.2`    | All Routers on this Subnet
