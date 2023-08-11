@@ -26,3 +26,31 @@
 >   PIR rate. Effectively, Be defines the second averaging interval, Te=Be/PIR, the averaging
 >   rate for PIR metering. Keep in mind that just like with any packet networks packets are sent
 >   at the AR, the actual physical rate – CIR and PIR are just average values.
+
+
+## XR QoS Commands
+
+###### Display all service-policies configured in a direction
+`show running interface * service-policy input`
+
+`show running interface * service-policy output`
+
+###### Display QoS Statistics
+`show policy-map interface <int> input`
+
+`show policy-map interface <int> output`
+
+###### Display details of a service-policy programmed in hardware
+`show qos interface <int> input`
+
+`show qos interface <int> output`
+
+###### Display the interfaces a policy-map is attached to
+`show policy-map targets [pmap-name <name>] [location <loc>]`
+
+###### Debugging Commands
+`show tech qos`
+
+`show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>`
+
+`show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>`
