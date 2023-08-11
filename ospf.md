@@ -48,15 +48,17 @@ LSAs and Network LSAs.
 
 Full OSPF State machine is in Routing TCP/IP Volume I
 
-### Commands 
+## Commands 
 Command | Description                                                                         
 -------------------------------------------- | -----------------------------------------------
 `show ip ospf interface brief`               |  Shows all interfaces OSPF is running on       
 `clear ip ospf process`                      |  Necessary to change the router-id.            
 `show ip ospf int brief`                     |  Interfaces OSPF is enabled on                 
 `show ip ospf int`                           |  OSPF interface information. Like network type 
+`area X range <network> <mask>               |  Summarize Internal Routes on the ABR
+`summary-address <network> <mask> 	         |  Summarize External Routes on the ASBR
 
-### Packets
+## Packets
 
 | Type  | Packet  name          | Protocol  function           |
 | ----- | --------------------- | ---------------------------- |
