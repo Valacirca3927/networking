@@ -1,5 +1,10 @@
 Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
 
+PIM forms adjacencies in only one direction
+PIM dense doesn't care about Designated Routers
+
+## PIM Dense Mode
+
 - Push or Implicit Join
   - Flood and Prune
   - Routers with no Recievers prune
@@ -20,9 +25,25 @@ Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
   - Downstream sent prune
   - LAN Prune override exception
 
-- Once prune occurs, 
-  - Flood again, prune back, flood again, prune back.
+- After pruning 
+  - Flood again, prune back, flood again, prune back
+  
+## PIM Sparse
+- Discover PIM neighbors
+- Discover the RP
+- Tell RP about the source
+- Tell RP about recievers 
+- Build shortest path tree from sender to recievers through RP
+- Join shortest path tree
+- Leave shared tree
+- Perform mrib maintainance
 
-PIM can form adjacencies in only one direcion
+## commands
 
-PIM dense doesn't care about Designated Routers
+#### IOS-XR
+`show pim rpf hash`
+
+`show mrib route summary`
+
+#### IOS
+`show ip rpf`
