@@ -1,3 +1,57 @@
+These are mostly notes on Cisco IOS NetFlow Version 9
+
+#### Export packet
+```
+  +---------------+------------------+--------------+--------------+---------+------------------+--------------+
+  | Packet Header | Template FlowSet | Data FlowSet | Data FlowSet | ....... | Template Flowset | Data FlowSet |
+  +---------------+------------------+--------------+--------------+---------+------------------+--------------+
+```
+[Cisco IOS NetFlow Version 9 Flow-Record Format - White Paper](https://www.cisco.com/en/US/technologies/tk648/tk362/technologies_white_paper09186a00800a3db9.pdf)
+
+#### Terminology
+
+* **Export packet** - Built by a device (for example, a router) with NetFlow services enabled, this type of packet is
+addressed to another device (for example, a NetFlow collector). This other device processes the packet (parses, 
+aggregates, and stores information on IP flows).
+
+* **Export packet** - Built by a device (for example, a router) with NetFlow services enabled, this type of packet is
+addressed to another device (for example, a NetFlow collector). This other device processes the packet (parses, 
+aggregates, and stores information on IP flows).
+
+* **Packet header** - The first part of an export packet, the packet header provides basic information about the packet,
+such as the NetFlow version, number of records contained within the packet, and sequence numbering, enabling lost
+packets to be detected.
+
+* **FlowSet** - Following the packet header, an export packet contains information that must be parsed and interpreted
+by the collector device. A FlowSet is a generic term for a collection of records that follow the packet header
+in an export packet. There are two different types of FlowSets: template and data. An export packet contains
+one or more FlowSets, and both template and data FlowSets can be mixed within the same export packet.
+
+* **Template FlowSet** - A template FlowSet is a collection of one or more template records that have been grouped together
+in an export packet.
+
+* **Template record** - A template record is used to define the format of subsequent data records that may be received
+in current or future export packets. It is important to note that a template record within an export packet does not
+necessarily indicate the format of data records within that same packet. A collector application must cache any template 
+records received, and then parse any data records it encounters by locating the appropriate template record within the cache.
+
+* **Template ID** - The template ID is a unique number that distinguishes this template record from all other template records
+produced by the same export device. A collector application that is receiving export packets from several devices should
+be aware that uniqueness is not guaranteed across export devices. Thus, the collector should also cache the address of 
+the export device that produced the template ID in order to enforce uniqueness.
+
+* **Data FlowSet** - A data FlowSet is a collection of one or more data records that have been grouped together in an export packet.
+
+* **Data record** - A data record provides information about an IP flow that exists on the device that produced an export packet.
+Each group of data records (that is, each data FlowSet) references a previously transmitted template ID, which can be used
+to parse the data contained within the records.
+
+* **Options template** - An options template is a special type of template record used to communicate the format of data related
+to the NetFlow process.
+
+* **Options data record** - The options data record is a special type of data record (based on an options template)
+with a reserved template ID that provides information about the NetFlow process itself.
+
 ## Flexible Netflow
  1. Records - Custom fields. You can match on whatever you want.
  1. Export Entities.
