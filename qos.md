@@ -49,9 +49,31 @@ show running interface * service-policy output
 ###### Display the interfaces a policy-map is attached to
 `show policy-map targets [pmap-name <name>] [location <loc>]`
 
-###### Debugging Commands
-`show tech qos`
 
-`show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>`
+## IOS-XR QoS Policy to shape outgoing to 100Mbps and police incoming to 100Mbps
+```
+interface GigabitEthernet0/0/0/0.100 l2transport
+ service-policy input incoming-limit-to-100Mb
+ service-policy output outgoing-limit-to-100Mb
+!
+policy-map incoming-limit-to-100Mb
+ class class-default
+  police rate 100 mbps
+   exceed-action drop
+  !
+!
+end-policy-map
+!
+policy-map outgoing-limit-to-100Mb
+ class class-default
+  shape average 100 mbps
+ !
+end-policy-map
+```
 
-`show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>`
+#### Verification
+```
+show policy-map interface g0/0/0/0.100 input
+show policy-map interface g0/0/0/0.100 output
+```
+>>>>>>> b6a162c (Update qos.md)
