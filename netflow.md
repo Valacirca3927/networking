@@ -111,10 +111,12 @@ int <>
 
 `show flow exporter templates`
 
-shows all the things you can match on and export
+###### shows all the things you can match on and export
+
 `show flow exporter export-ids netflow-v9`
 
-show data towards the collector
+###### show data towards the collector
+
 `debug ip flow export`
 
 `debug ip flow cache`
