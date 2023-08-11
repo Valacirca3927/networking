@@ -35,7 +35,7 @@ expiration of the Detection Timer.
 
 * **BOB** - BFD over Bundle
 
-* **BLB** - BFD over Logical Bundle - (VLANS, Sub-interfaces). This requires multipath to be enabled.
+* **BLB** - BFD over Logical Bundle - (VLANS, Sub-interfaces). This requires multipath to be enabled. Multipath doesn't inject BFD packets into the HP queue.
 
 ### IOS-XR Commands
 ```
