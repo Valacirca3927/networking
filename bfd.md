@@ -138,3 +138,47 @@ bfd
 interface g0/0/0/0
  echo disable
 ```
+
+#### Protecting the BFD data-plane packets from QoS
+`192.168.100.1 <-> 192.168.100.2`
+
+```
+!
+! Config for 192.168.100.1
+!
+ipv4 access-list BFD-TRAFFIC
+ 5 permit udp host 192.168.100.1 any range 3784 3785
+ 10 permit udp host 192.168.100.2 any range 3784 3785
+!
+class-map match-any BFD-CLASS
+ match access-group ipv4 BFD-TRAFFIC
+!
+policy-map OUT
+class BFD-CLASS
+ priority level 1
+ police rate 10 kbps
+!
+interface TenGig <>
+ service-policy output OUT
+ bfd address-family ipv4 multiplier 3
+ bfd address-family ipv4 destination 192.168.100.1
+ bfd address-family ipv4 fast-detect
+ bfd address-family ipv4 minimum-interval 100
+!
+
+
+## Enabling BFD on RSVP (IOS)
+
+###### A Config
+```
+ip rsvp signalling bfd hello
+!
+! this very dangerous because CPU load will affect processing of BFD control packets
+!
+int f0/0.45
+ ip rsvp signalling hello bfd
+ bfd interval 50 min_rx 50 multiplier 3
+```
+
+###### Verification 
+`show ip rsvp hello bfd nbr`
