@@ -27,18 +27,17 @@ cisco-rp-discovery | 224.0.1.40
 
 [IANA Assignments](https://www.iana.org/assignments/multicast-addresses/multicast-addresses.xhtml)
 
-Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
-
 PIM forms adjacencies in only one direction
 
-PIM dense doesn't care about Designated Routers
+
 
 The multicast source is the root of the tree. Packets flow downstream from the source. Control plane traffic like PIM joins flow upstream to the RP, or to the reciever.
 
 ## PIM Dense Mode
-
+Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
 - Push or Implicit Join
   - Flood and Prune
+  - Doesn't care about Designated Routers
   - Routers with no Recievers prune
   - `224.0.0.13` to find neighbors
   - Send traffic out all interfaces running dense
@@ -56,7 +55,6 @@ The multicast source is the root of the tree. Packets flow downstream from the s
   - No downstream neighbor or reciever
   - Downstream sent prune
   - LAN Prune override exception
-
 - After pruning 
   - Flood again, prune back, flood again, prune back
   
