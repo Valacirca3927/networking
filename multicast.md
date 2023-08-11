@@ -4,13 +4,28 @@ Multicast is always TO a group not FROM a group.
 
 A multicast address can only ever be a destination.
 
-Scope          | Address
--------------- | --------------
-`224.0.0.0/4`  | Multicast
-`240.0.0.0/24` | Link-Local
-`232.0.0.0/8`  | Source Specific (SSM)
-`239.0.0.0/8`  | Private or Administratively Scoped
+Addresses      | Description
+-------------- | 
+`224.0.0.0/4`  | Multicast Supernet
+`224.0.0.1`    | All Systems on this Subnet
+`224.0.0.2`    | All Routers on this Subnet
+`232.0.0.0/8`  | Source-Specific Multicast (SSM)
+`239.0.0.0/8`  | Organization-Local Scope
 
+## Common Addresses
+
+Protocol           | Multicast Address
+--------------     | --------------
+RIP                | 255.255.255.0
+OSPF-hello         | 224.0.0.5
+OSPF-DR            | 224.0.0.6
+RIPv2              | 224.0.0.9
+EIGRP              | 224.0.0.10
+mDNS               | 224.0.0.251
+cisco-rp-announce  | 224.0.1.39
+cisco-rp-discovery | 224.0.1.40
+
+[IANA Assignments](https://www.iana.org/assignments/multicast-addresses/multicast-addresses.xhtml)
 
 Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
 
@@ -55,6 +70,23 @@ The multicast source is the root of the tree. Packets flow downstream from the s
 - Leave shared tree
 - Perform mrib maintainance
 
+#### Shared-Tree (*,G)
+- PIM Sparse
+  - A single tree is built for each group, regardless of source
+    - 3 sources, 1 tree
+  - Selects a router as the root of the tree [Rendezvous Point]
+  - Multicast sources not on the shared tree encapsulate their data to the RP, which de-encapsulates it, then flows down the tree
+  - If a reciever is on the same subnet as the sending host, it will need to revert to PIM Dense for that segment
+  - Shared trees are essential for multiple senders to the same group
+  - This isn't always better. Shared trees will typically take suboptimal paths through a network
+  - Source trees are better distributed, hence they are more robust
+  - RP Selection is a hassle
+
+#### Source Based Multicast (S,G)
+- PIM dense uses a seperate tree for each multicast source and destination group.
+- Groups do not share trees.
+  - 3 Sources 3 trees.
+
 ## Commands
 
 #### IOS-XR
@@ -70,6 +102,14 @@ The multicast source is the root of the tree. Packets flow downstream from the s
 
 #### IOS
 `show ip rpf`
+
+`show ip mfib`
+```
+FLAGS
+ A - Accepting. This interface is accepting data
+ F - Forwarding. Where to send multicast traffic
+```
+
 
 #### Nexus 7K
 `show forwarding multicast route group <>`
