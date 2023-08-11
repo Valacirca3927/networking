@@ -1,7 +1,7 @@
 [Understanding Single-Rate and Dual-Rate Traffic Policing - INE](https://ine.com/blog/2011-05-22-understanding-single-rate-and-dual-rate-traffic-policing)
 
-> #### Dual Rate Traffic Contract
->
+#### Dual Rate Traffic Contract
+> 
 > The drawback of single-rate traffic contracts is that SP should be cautions assigning CIR bandwidth,
 > and may effectively “undersell” itself, by offering less bandwidth than it can actually service at
 > any given moment of type. The reason for this is the fact that not all customers send traffic simultaneously,
@@ -37,21 +37,81 @@ show running interface * service-policy output
 ```
 
 ###### Display QoS Statistics
-`show policy-map interface <int> input`
-
-`show policy-map interface <int> output`
+```
+show policy-map interface <int> input
+show policy-map interface <int> output
+```
 
 ###### Display details of a service-policy programmed in hardware
-`show qos interface <int> input`
-
-`show qos interface <int> output`
+```
+show qos interface <int> input
+show qos interface <int> output
+```
 
 ###### Display the interfaces a policy-map is attached to
-`show policy-map targets [pmap-name <name>] [location <loc>]`
+```
+show policy-map targets [pmap-name <name>] [location <loc>]
+```
 
 ###### Debugging Commands
-`show tech qos`
+```
+show tech qos
+show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>
+show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>
+```
 
-`show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>`
+## IOS Config
+```
+mls qos 
 
-`show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>`
+interface Vlan10
+ no ip address
+ service-policy input Ping_Set_DSCP
+
+policy-map Interface_Police
+  class port21
+    police 96000 8000 exceed-action drop
+  class port22
+    police 64000 8000 exceed-action drop
+
+policy-map Ping_Set_DSCP
+  class Ping_Traffic
+   set dscp af31
+   service-policy Interface_Police
+
+class-map match-all port22
+  match input-interface FastEthernet0/22
+class-map match-all port21
+  match input-interface  FastEthernet0/21
+class-map match-all Ping_Traffic
+  match access-group 100
+
+interface FastEthernet0/21
+ mls qos vlan-based
+```
+
+## IOS-XR QoS Policy to shape outgoing to 100Mbps and police incoming to 100Mbps
+```
+interface GigabitEthernet0/0/0/0.100 l2transport
+ service-policy input incoming-limit-to-100Mb
+ service-policy output outgoing-limit-to-100Mb
+!
+policy-map incoming-limit-to-100Mb
+ class class-default
+  police rate 100 mbps
+   exceed-action drop
+  !
+!
+end-policy-map
+!
+policy-map outgoing-limit-to-100Mb
+ class class-default
+  shape average 100 mbps
+ !
+end-policy-map
+
+#### Verification
+```
+show policy-map interface g0/0/0/0.100 input
+show policy-map interface g0/0/0/0.100 output
+```
