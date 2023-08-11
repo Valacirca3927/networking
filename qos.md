@@ -60,36 +60,6 @@ show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>
 show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>
 ```
 
-## IOS Config
-```
-mls qos 
-
-interface Vlan10
- no ip address
- service-policy input Ping_Set_DSCP
-
-policy-map Interface_Police
-  class port21
-    police 96000 8000 exceed-action drop
-  class port22
-    police 64000 8000 exceed-action drop
-
-policy-map Ping_Set_DSCP
-  class Ping_Traffic
-   set dscp af31
-   service-policy Interface_Police
-
-class-map match-all port22
-  match input-interface FastEthernet0/22
-class-map match-all port21
-  match input-interface  FastEthernet0/21
-class-map match-all Ping_Traffic
-  match access-group 100
-
-interface FastEthernet0/21
- mls qos vlan-based
-```
-
 ## IOS-XR QoS Policy to shape outgoing to 100Mbps and police incoming to 100Mbps
 ```
 interface GigabitEthernet0/0/0/0.100 l2transport
