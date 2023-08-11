@@ -31,9 +31,10 @@
 ## XR QoS Commands
 
 ###### Display all service-policies configured in a direction
-`show running interface * service-policy input`
-
-`show running interface * service-policy output`
+```
+show running interface * service-policy input
+show running interface * service-policy output
+```
 
 ###### Display QoS Statistics
 `show policy-map interface <int> input`
