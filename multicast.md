@@ -1,7 +1,24 @@
+## Theory
+
+Multicast is always TO a group not FROM a group. 
+
+A multicast address can only ever be a destination.
+
+Scope          | Address
+-------------- | --------------
+`224.0.0.0/4`  | Multicast
+`240.0.0.0/24` | Link-Local
+`232.0.0.0/8`  | Source Specific (SSM)
+`239.0.0.0/8`  | Private or Administratively Scoped
+
+
 Based on RFC 3973 Protocol Independent Multicast Dense Mode (PIM-DM)
 
 PIM forms adjacencies in only one direction
+
 PIM dense doesn't care about Designated Routers
+
+The multicast source is the root of the tree. Packets flow downstream from the source. Control plane traffic like PIM joins flow upstream to the RP, or to the reciever.
 
 ## PIM Dense Mode
 
@@ -38,12 +55,21 @@ PIM dense doesn't care about Designated Routers
 - Leave shared tree
 - Perform mrib maintainance
 
-## commands
+## Commands
 
 #### IOS-XR
 `show pim rpf hash`
+
+`show pim range-list`
+
+`show pim topology`
+
+`show ip mroute`
 
 `show mrib route summary`
 
 #### IOS
 `show ip rpf`
+
+#### Nexus 7K
+`show forwarding multicast route group <>`
