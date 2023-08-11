@@ -7,6 +7,47 @@ Each router in an area will have an identical `LSDB` Link state database. OSPF i
 
 [Understand OSPF Design Guide - Cisco](https://www.cisco.com/c/en/us/support/docs/ip/open-shortest-path-first-ospf/7039-1.html)
 
+## Neighbor State Machine
+
+**Down** - The initial state of a neighbor conversation indicates that no Hellos have been 
+heard from the neighbor in the last RouterDeadInterval. Hellos are not sent to down 
+neighbors unless those neighbors are on NBMA networks; in this case, Hellos are sent 
+every PollInterval. If a neighbor transitions to the Down state from some higher state, 
+the link state Retransmission, Database Summary, and Link State Request lists are 
+cleared. 
+
+**Attempt** - This state applies only to neighbors on NBMA networks, where neighbors 
+are manually configured. A DR-eligible router transitions a neighbor to the Attempt 
+state when the interface to the neighbor first becomes Active or when the router is the 
+DR or BDR. A router sends packets to a neighbor in Attempt state at the HelloInterval 
+instead of the PollInterval. 
+
+**Init** - This state indicates that a Hello packet has been seen from the neighbor in the 
+last RouterDeadInterval, but two-way communication has not yet been established. A 
+router includes the Router IDs of all neighbors in this state or higher in the Neighbor 
+field of the Hello packets.
+
+**2-Way** - This state indicates that the router has seen its own Router ID in the 
+Neighbor field of the neighbor’s Hello packets, which means that a bidirectional 
+conversation has been established. On multi-access networks, neighbors must be in 
+this state or higher to be eligible to be elected as the DR or BDR. The reception of a 
+Database Description packet from a neighbor in the init state also causes a transition 
+to 2-Way. 
+
+**ExStart** - In this state, the router and its neighbor establish a master/slave relationship 
+and determine the initial DD sequence number in preparation for the exchange of 
+Database Description packets. The neighbor with the highest Router ID becomes the 
+master. 
+
+**Loading** - The router sends Link State Request packets to neighbors that are in 
+the Loading state, requesting more recent LSAs that have been discovered in the 
+Exchange state but have not yet been received. 
+
+**Full** - Neighbors in this state are fully adjacent, and the adjacencies appear in Router 
+LSAs and Network LSAs.
+
+Full OSPF State machine is in Routing TCP/IP Volume I
+
 ### Commands 
 Command | Description                                                                         
 -------------------------------------------- | -----------------------------------------------
