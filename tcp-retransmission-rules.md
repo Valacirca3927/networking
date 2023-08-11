@@ -1,6 +1,8 @@
 The receiver does not request the retransmission. The sender waits for an ACK for the byte-range sent to the client and when not received, resends the packets, after a particular interval. 
 
-This is ARQ (Automatic Repeat reQuest). There are several ways in which this is implemented.
+**ARQ** - Automatic Repeat reQuest
+
+There are several ways in which this is implemented:
 
 http://stackoverflow.com/questions/12956685/what-are-the-retransmission-rules-for-tcp
 
