@@ -37,22 +37,20 @@ show running interface * service-policy output
 ```
 
 ###### Display QoS Statistics
-`show policy-map interface <int> input`
-
-<<<<<<< HEAD
-`show policy-map interface <int> output`
+```
+show policy-map interface <int> input
+show policy-map interface <int> output
+```
 
 ###### Display details of a service-policy programmed in hardware
-`show qos interface <int> input`
-
-`show qos interface <int> output`
+```
+show qos interface <int> input
+show qos interface <int> output
+```
 
 ###### Display the interfaces a policy-map is attached to
 `show policy-map targets [pmap-name <name>] [location <loc>]`
 
-
-=======
->>>>>>> 89ee176 (Update qos.md)
 ## IOS-XR QoS Policy to shape outgoing to 100Mbps and police incoming to 100Mbps
 ```
 interface GigabitEthernet0/0/0/0.100 l2transport
@@ -79,4 +77,3 @@ end-policy-map
 show policy-map interface g0/0/0/0.100 input
 show policy-map interface g0/0/0/0.100 output
 ```
->>>>>>> b6a162c (Update qos.md)
