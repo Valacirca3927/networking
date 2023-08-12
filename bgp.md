@@ -1,6 +1,7 @@
 ## Theory
-
-BGP works on the premise that if a router sees its own AS path, it must be a loop.
+- BGP works on the premise that if a router sees its own AS path, it must be a loop.
+- The default timer is 60 seconds with 180 seconds for hold time. This means worst-case is 3 minutes to fail-over.
+- BGP `aggregate-address` only works if there is a subnet inside the aggregate range in BGP
 
 #### Working with BGP
  - Only consider traffic in one direction at a time
@@ -110,7 +111,7 @@ Downstream peers can not remove this tag
 AS and Router ID of the BGP router that did the atomic aggregation.
 
 ### COMMUNITY
-This is used to tag all the routes from a certain customer.
+Usually used to tag routes from a specific customer.
 
 Tag | Purpose
 -------------|--------------------------
@@ -122,7 +123,6 @@ LOCAL_AS     | ????
 ### ORIGINATOR_ID 
 For route reflectors
 The origaning router puts its `Router_ID` here. If it sees this, it knows a loop as occured.
-
 
 ### CLUSTER_LIST
 - For route reflectors
@@ -142,12 +142,12 @@ A RR will not change any attributes of a route.
 
 Only the route reflector is aware of the reflecting. The clients are dumb
 
-If you configure route reflectors as a cluster you must manually configure the cluster_ID
+If you configure route reflectors as a cluster you must manually configure the `cluster_ID`
 
 ##### BGP by default will summarize. 
 Use `no auto-summary`.
 
-Using redistribute under BGP will make the resulting route show up with an orign code of 'incomplete'.
+Using redistribute under BGP will make the resulting route show up with an orign code of `incomplete`.
 
 ##### Sending a default route
 `neighbor A.B.C.D default-originate` 
@@ -186,4 +186,31 @@ Just because the route shows up in `show ip bgp` doesn't mean it will install. B
 
 ##### Notes
 - Route reflectors can be clients of each other. This causes extra overhead.
-- If multiple route reflectors server the same cluster they should have the same cluster ID.
+- If multiple route reflectors server the same cluster they should have the same `Cluster_ID`.
+
+##### BGP Route Reflectors Loop Prevention
+- If a BGP router that receives a route from an iBGP neighbor in the incoming update detects the presence of its own Router-ID in the Originator-ID attribute it will reject the update.
+- If a BGP router that receives a route from an iBGP neighbor is configured to operate as a route reflector and in the incoming update detects the presence of its own `Cluster-ID` in the
+  `Cluster-list` attribute it will reject the update.
+
+##### Confederations
+	
+`NEXT_HOP` is preserved throughout the confederation.
+
+`MED` is preserved for routes advertised into the confederation
+	
+`LOCAL_PREF` is preserved throughout the confederation
+	
+`AS_PATH` for privates ASes is used within the confederation
+ 
+###### Force interior confederation MEDs to be considered:
+`bgp deterministic-med`
+
+Route Reflectors are generally preferred.
+
+IF you want to add two BGP speakers to the same router reflector cluster, specify the cluster ID.
+- clients can not detect inter-cluster loops. They don't have the attributes in the BGP table.
+
+### BGP redistribution into anything
+
+  
