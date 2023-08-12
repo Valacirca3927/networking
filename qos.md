@@ -1,7 +1,7 @@
 [Understanding Single-Rate and Dual-Rate Traffic Policing - INE](https://ine.com/blog/2011-05-22-understanding-single-rate-and-dual-rate-traffic-policing)
 
-#### Dual Rate Traffic Contract
-> 
+> #### Dual Rate Traffic Contract
+>
 > The drawback of single-rate traffic contracts is that SP should be cautions assigning CIR bandwidth,
 > and may effectively “undersell” itself, by offering less bandwidth than it can actually service at
 > any given moment of type. The reason for this is the fact that not all customers send traffic simultaneously,
@@ -49,16 +49,7 @@ show qos interface <int> output
 ```
 
 ###### Display the interfaces a policy-map is attached to
-```
-show policy-map targets [pmap-name <name>] [location <loc>]
-```
-
-###### Debugging Commands
-```
-show tech qos
-show app-obj db class_map_qos_db proc-name <name of DB proc> location <loc>
-show app-obj db policy_map_qos_db proc-name <name of DB proc> location <loc>
-```
+`show policy-map targets [pmap-name <name>] [location <loc>]`
 
 ## IOS-XR QoS Policy to shape outgoing to 100Mbps and police incoming to 100Mbps
 ```
