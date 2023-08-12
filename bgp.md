@@ -1,7 +1,7 @@
 ## Theory
 - BGP works on the premise that if a router sees its own AS path, it must be a loop.
 - The default timer is 60 seconds with 180 seconds for hold time. This means worst-case is 3 minutes to fail-over.
-- BGP `aggregate-address` only works if there is a subnet inside the aggregate range in BGP
+- BGP `aggregate-address` only works if there is a subnet inside the aggregate range in BGP.
 
 #### Working with BGP
  - Only consider traffic in one direction at a time
