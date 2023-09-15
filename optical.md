@@ -1,7 +1,9 @@
-#### Basic Terms
+#### Terms
 
 | Term                                         | Definition                                                                      |
 | -------------------------------------------- | --------------------------------------------------------------------------------|
+| MR-APS                                       | inter-chassis APS.                                                              |
+| APS                                          |  Automatic Protection Switching for POS                                         |
 | UNI                                          |  User Network Interface                                                         |
 | NNI                                          |  Network Node Interface                                                         |
 | Interworking                                 |  Getting L2 information from Ethernet to work over Sonet or frame relay.        |
@@ -22,29 +24,25 @@ Network elements are expected to terminate and understand their layer, and layer
 
 If a SONET reciever at the Line level counts a BIP, it returns it to sender. The sender increments the line FEBE
 
+It's been a while, the below might be wrong.
+
 ```
-PATH
-+-------------------------------------------------------------------------------+
-|                                                                               |
-|               Line                                   Line                     |
-|   +-------------------------------+      +-------------------------------+    |
-|   |                               |      |                               |    |
-+   +                               +      +                               +    +
++-------------------------------------------------- PATH -------------------------------------------------+
+|                                                                                                         |
+|                                                                                                         |
+|   +--------------- LINE --------------------+            +------------------ LINE-------------------+   |
+|   |                                         |            |                                          |   |
+v   v                                         v            v                                          v   v
 
 +---+      +------------+       +-----+       +------------+      +-----+       +------------+        +---+
 |CPE|------|Terminal    |-------|Regen|-------|Add/Drop    |------|Regen|-------|Terminal    |--------|CPE|
 +---+ DS-n | Multiplexer| OC-N  +-----+ OC-N  | Multiplexer| OC-N +-----+ OC-N  | Multiplexer|  DS-n  +---+
            +------------+                     +------------+                    +------------+
 
-|        +              + +             +      +         +   +           +
-|        |              | |             |      |         |   |           |
-|        +--------------+ +-------------+      +---------+   +-----------+
-|
-|            SECTION         SECTION             SECTION       SECTION
-|
-|
-|
-+
+    ^      ^            ^       ^     ^       ^            ^      ^     ^       ^            ^        ^
+    |      |            |       |     |       |            |      |     |       |            |        |
+    +------+            +-------+     +-------+            +------+     +-------+            +--------+
+    SECTION              SECTION       SECTION             SECTION       SECTION              SECTION
 ```
 
 ## C2 Byte
@@ -114,14 +112,15 @@ B3: B3 can detect up to eight parity errors in the entire SPE. This number produ
 
 ##### Packet over SONET commands
 
-`show aps` 
-Displays information about the automatic protection switching feature.
+##### Displays information about the automatic protection switching feature
+`show aps`
 
-`show controller sonet slot/port-adapter/port` 
-Displays information about the hardware.
+##### Displays information about the hardware
+`show controller sonet slot/port-adapter/port`
 
-`show controllers pos` 
-Displays information about the interface. 
+##### Displays information about the interface
+`show controllers pos`
+
 
 ## G709
 G709 is an optical specification that is specifcially designed for FEC (Forward Error correction)
@@ -212,3 +211,7 @@ BER thresholds:           SF = 10e-3  SD = 10e-6
 IPS BER thresholds(B3):   SF = 10e-3  SD = 10e-6
 TCA thresholds:           B1 = 10e-6  B2 = 10e-6  B3 = 10e-6
 ```
+
+##### References
+
+[SONET Primer](https://www.cisco.com/c/en/us/td/docs/optical/15000r5_0/planning/guide/r50engpl/r50appb.pdf)
