@@ -1,4 +1,4 @@
-#### Terms
+## Terms
 
 | Term                                         | Definition                                                                      |
 | -------------------------------------------- | --------------------------------------------------------------------------------|
@@ -17,7 +17,7 @@
 | BIP                                          | Bit Interleaved Parity                                                          |
 | FEBE                                         | Far End Block Error                                                             |
 
-#### Sonet
+## Sonet
 Path Payloads must match. Check Scrambling.
 
 Network elements are expected to terminate and understand their layer, and layer overhead
@@ -45,7 +45,7 @@ v   v                                         v            v                    
     SECTION              SECTION       SECTION             SECTION       SECTION              SECTION
 ```
 
-## C2 Byte
+### C2 Byte
 
 C2 Defines the SONET payload
 
@@ -132,7 +132,7 @@ G709 is an optical specification that is specifcially designed for FEC (Forward 
 
 * **OPU** - OPtical channel Payload Unit
 
-#### SRP - Spatial Resues protocol
+#### SRP - Spatial Reuse protocol
 
 This is used for fiber rings, its where the destination nodes pulls the info from the ring so it doesn't loop endlessly.
 
@@ -148,7 +148,9 @@ to reuse the bandwidth. Data packets travel on one ring, while associated contro
 direction on the alternate ring, ensuring that the data takes the shortest path to its destination.
 ```
 
-RPR - Resilient Packet Ring - 802.17
+#### RPR - Resilient Packet Ring
+
+802.17
 
 * **Steering** - Nodes are told the affected node is down and don't include it.
 * **Wrapping** - The node closest to the break route the traffic on the other direction of the ring.
