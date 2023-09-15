@@ -132,7 +132,7 @@ G709 is an optical specification that is specifcially designed for FEC (Forward 
 
 * **OPU** - OPtical channel Payload Unit
 
-#### SRP - Spatial Reuse protocol
+## SRP - Spatial Reuse protocol
 
 This is used for fiber rings, its where the destination nodes pulls the info from the ring so it doesn't loop endlessly.
 
@@ -148,7 +148,7 @@ to reuse the bandwidth. Data packets travel on one ring, while associated contro
 direction on the alternate ring, ensuring that the data takes the shortest path to its destination.
 ```
 
-#### RPR - Resilient Packet Ring
+## RPR - Resilient Packet Ring
 
 802.17
 
