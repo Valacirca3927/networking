@@ -1,35 +1,26 @@
 #### Basic Terms
 
-| Term ----------------------------------------| Definition                                                                      |
+| Term                                         | Definition                                                                      |
 | -------------------------------------------- | --------------------------------------------------------------------------------|
 | UNI                                          |  User Network Interface                                                         |
 | NNI                                          |  Network Node Interface                                                         |
-| Interworking                                 |  Getting L2 information from Ethernet to work over Sonet or frame relay. 
+| Interworking                                 |  Getting L2 information from Ethernet to work over Sonet or frame relay.        |
+| STE                                          | Section Terminating Equipment                                                   |
+| LTE                                          | Line terminating equipment                                                      |
+| PTE                                          | Path terminating equipment                                                      |
+| POH                                          | Path overhead - This layer represents end-to-end status.                        |
+| LOH                                          | Line overhead - Typically major nodes in SONET like ADMs                        |
+| SOH                                          | Section overhead - Optical regenators                                           |
+| SPE                                          | Synchronous payload envelope                                                    |
+| BIP                                          | Bit Interleaved Parity                                                          |
+| FEBE                                         | Far End Block Error                                                             |
 
 #### Sonet
 Path Payloads must match. Check Scrambling.
 
 Network elements are expected to terminate and understand their layer, and layer overhead
 
-* **STE** - Section Terminating Equipment
-
-* **LTE** - Line terminating equipment
-
-* **PTE** - Path terminating equipment
-
-* **POH** - Path overhead - This layer represents end-to-end status.
-
-* **LOH** - Line overhead - Typically major nodes in SONET like ADMs
-
-* **SOH** - Section overhead - Optical regenators
-
-* **SPE** - Synchronous payload envelope
-
-* **BIP** - Bit Interleaved Parity
-
-* **FEBE = Far End Block Error
-
-	If a SONET reciever at the Line level counts a BIP, it returns it to sender. The sender increments the line FEBE
+If a SONET reciever at the Line level counts a BIP, it returns it to sender. The sender increments the line FEBE
 
 ```
 PATH
@@ -70,22 +61,22 @@ An old note, probably from a standard document.
 
 This table lists common values for the C2 byte:
 
-| Hex Value  | SONET Payload Contents                                         |
-| --------- | --------------------------------------------------------------- |
-| 00        | Unequipped.                                                     |
-| 01        | Equipped - non-specific payload.                                |
-| 02        | Virtual Tributaries (VTs) inside (default).                     |
-| 03        | VTs in locked mode (no longer supported).                       |
-| 04        | Asynchronous DS3 mapping.                                       |
-| 12        | Asynchronous DS-4NA mapping.                                    |
-| 13        | Asynchronous Transfer Mode (ATM) cell mapping.                  |
-| 14        | Distributed Queue Dual Bus (DQDB) cell mapping.                 |
-| 15        | Asynchronous Fiber Distributed Data Interface (FDDI) mapping.   |
-| 16        | IP inside Point-to-Point Protocol (PPP) with scrambling.        |
-| CF        | IP inside PPP without scrambling.                               |
-| E1- FC    | Payload Defect Indicator (PDI).                                 |
-| FE        | Test signal mapping (see ITU Rec. G.707).                       |
-| FF        | Alarm Indication Signal (AIS).                                  |
+| Hex Value  | SONET Payload Contents                                          |
+| ---------- | --------------------------------------------------------------- |
+| 00         | Unequipped.                                                     |
+| 01         | Equipped - non-specific payload.                                |
+| 02         | Virtual Tributaries (VTs) inside (default).                     |
+| 03         | VTs in locked mode (no longer supported).                       |
+| 04         | Asynchronous DS3 mapping.                                       |
+| 12         | Asynchronous DS-4NA mapping.                                    |
+| 13         | Asynchronous Transfer Mode (ATM) cell mapping.                  |
+| 14         | Distributed Queue Dual Bus (DQDB) cell mapping.                 |
+| 15         | Asynchronous Fiber Distributed Data Interface (FDDI) mapping.   |
+| 16         | IP inside Point-to-Point Protocol (PPP) with scrambling.        |
+| CF         | IP inside PPP without scrambling.                               |
+| E1- FC     | Payload Defect Indicator (PDI).                                 |
+| FE         | Test signal mapping (see ITU Rec. G.707).                       |
+| FF         | Alarm Indication Signal (AIS).                                  |
 
 An Example:
 ```
@@ -121,6 +112,17 @@ B2: B2 can detect a far higher number of errors per frame. The exact number incr
 B3: B3 can detect up to eight parity errors in the entire SPE. This number produces acceptable resolution for a channelized interface because, (for example) each STS-1 in an STS-3 has a path overhead and B3 byte. However, this number produces poor resolution over concatenated payloads in which a single set of path overhead must cover a relatively large payload frame. 
 ```
 
+##### Packet over SONET commands
+
+`show aps` 
+Displays information about the automatic protection switching feature.
+
+`show controller sonet slot/port-adapter/port` 
+Displays information about the hardware.
+
+`show controllers pos` 
+Displays information about the interface. 
+
 ## G709
 G709 is an optical specification that is specifcially designed for FEC (Forward Error correction)
 	It uses Reed-Solomon to produce redundant information that can be used to rebuild the frame.
@@ -149,8 +151,8 @@ direction on the alternate ring, ensuring that the data takes the shortest path 
 
 RPR - Resilient Packet Ring - 802.17
 
-* **Steering* - Nodes are told the affected node is down and don't include it.
-* **Wrapping* - The node closest to the break route the traffic on the other direction of the ring.
+* **Steering** - Nodes are told the affected node is down and don't include it.
+* **Wrapping** - The node closest to the break route the traffic on the other direction of the ring.
 
 Side A Always connects to Side B.
 
