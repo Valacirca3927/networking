@@ -1,3 +1,4 @@
+```
 #
 # This is the config for portainer, and the reverse proxy, traefik
 #
@@ -158,3 +159,4 @@ services:
 networks:
   user-bridge:
     external: true
+```
